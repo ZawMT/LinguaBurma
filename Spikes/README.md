@@ -1,0 +1,1 @@
+This is a folder to keep the spike projects. Keep each spike in one folder.
