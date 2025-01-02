@@ -1,0 +1,16 @@
+services:
+  rn_app:
+    image: rn_app:latest
+    build: .
+    ports:
+      - 19000:19000
+      - 19001:19001
+      - 19002:19002
+      - 19006:19006
+      - 8081:8081
+    environment:
+      - NODE_EVN=development
+      - EXPO_DEVT OOLS_LISTEN_ADDRESS=0.0.0.0
+      - REACT_NATIVE_PACKAGER_HOSTNAME=192.168.68.135
+    volumes:
+      - ./:/usr/src/app/

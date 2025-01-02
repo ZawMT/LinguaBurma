@@ -1,0 +1,7 @@
+FROM node:18-alpine
+
+WORKDIR /usr/src/app/rn_app
+
+RUN npm install -g create-expo-app@3.2.0
+
+CMD ["npm", "run", "web"]
