@@ -17,8 +17,8 @@
 ```
     npm run web
 ```
-    This command will lookcause the error like "package.json" cannot be found because the system is looking for the file in "folder", but all the generated files are in "folder/my-app". So move all the files from "folder/my-app" to "folder".
-    Then running this might prompt some packages to install as shown in the next step.
+    This command will cause the error like "package.json" cannot be found because the system is looking for the file in "folder", but all the generated files are in "folder/my-app". So move all the files from "folder/my-app" to "folder".
+    Then running this again might get prompt to install some packages as shown in the next step. If different packages are shown in the prompt, follow accordingly.
 ### Step 3: 
 ```
     npx expo install react-dom react-native-web @expo/metro-runtime
@@ -33,6 +33,7 @@
 ```
     brew install watchman
 ```
+    If needed, install "brew".
     After that you might need to restart the IDE to take effect. Then try again </>npm run web</>
     You should be able to see a line saying this in the browser:
     Open up App.js to start working on your app!
