@@ -7,7 +7,9 @@
 
     Do not run the command right away! Before trying each step, read the full info first. 
 ### Step 1:
-    **npx create-expo-app --template blank**
+    ```
+    npx create-expo-app --template blank
+    ```
     There might be a prompt asking to install create-expo-app@3.2.0. If so, just say yes by typing "y".
     For app name, default name "my-app" is used.
     A message will finally show up saying that the app is ready and how it can be run for different environment.
