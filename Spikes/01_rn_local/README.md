@@ -2,7 +2,7 @@
     The app is created and run locallaly.
 
 ## Steps to create and run the app
-    ####Prerequesite:
+    ### Prerequesite:
         Environment is ready to run npm / npx as required
 
     Do not run the command right away! Before trying each step, read the full info first. 
