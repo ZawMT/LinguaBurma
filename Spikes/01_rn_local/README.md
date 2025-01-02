@@ -7,16 +7,14 @@
 
     Do not run the command right away! Before trying each step, read the full info first. 
 ### Step 1:
-    `npx create-expo-app --template blank`
+    **npx create-expo-app --template blank**
     There might be a prompt asking to install create-expo-app@3.2.0. If so, just say yes by typing "y".
     For app name, default name "my-app" is used.
     A message will finally show up saying that the app is ready and how it can be run for different environment.
 ### Step 2:
-        </>
-        npm run web
-        </>
-        This command will lookcause the error like "package.json" cannot be found because the system is looking for the file in "folder", but all the generated files are in "folder/my-app". So move all the files from "folder/my-app" to "folder".
-        Then running this might prompt some packages to install as shown in the next step.
+    **npm run web**
+    This command will lookcause the error like "package.json" cannot be found because the system is looking for the file in "folder", but all the generated files are in "folder/my-app". So move all the files from "folder/my-app" to "folder".
+    Then running this might prompt some packages to install as shown in the next step.
 ### Step 3: 
         </>
         npx expo install react-dom react-native-web @expo/metro-runtime
