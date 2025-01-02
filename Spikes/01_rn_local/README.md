@@ -1,12 +1,12 @@
-##Creating a basic react-native app
+# Creating a basic react-native app
     The app is created and run locallaly.
 
-###Steps to create and run the app
+## Steps to create and run the app
     ####Prerequesite:
         Environment is ready to run npm / npx as required
 
     Do not run the command right away! Before trying each step, read the full info first. 
-    ####Step 1:
+    ### Step 1:
         </>
         npx create-expo-app --template blank
         </>
