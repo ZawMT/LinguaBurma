@@ -18,7 +18,7 @@
     npm run web
 ```
     This command will cause the error like "package.json" cannot be found because the system is looking for the file in "folder", but all the generated files are in "folder/my-app". So move all the files from "folder/my-app" to "folder".
-    **TESTING**
+**TESTING**
     Then running this again might get prompt to install some packages as shown in the next step. If different packages are shown in the prompt, follow accordingly.
 ### Step 3: 
 ```
