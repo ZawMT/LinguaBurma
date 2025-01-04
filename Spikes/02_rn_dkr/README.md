@@ -16,11 +16,14 @@
 ### Step 2:
     Then create the app by running the command "npx create-expo-app --template blank" in the image as follows:
 ```
-    docker run -it -v ./:/usr/src/app/ rn_app:latest npx expo install react-dom react-native-web @expo/metro-runtime
+    docker run -it -v ./:/usr/src/app/ rn_app:latest npx create-expo-app --template blank
 ```
-    The current project directory is mapped to '/usr/src/app' of the image as well, so the files can be accessed in the host.
+    The current project directory is mapped to '/usr/src/app' of the image as well, so the generated files can be accessed in the host.
     Logically the application should be able to call by running "npm run --web" in the container.
     But first, we need to run this: npx expo install react-dom react-native-web @expo/metro-runtime.
+```
+    docker run -it -v ./:/usr/src/app/ rn_app:latest npx expo install react-dom react-native-web @expo/metro-runtime
+```
     To run that command, the working directory should be the newly created project folder.
     So, firstly, delete the current image and copy the content of Dockerfile_02 into the Dockerfile.
     And then recreate the docker image as in the following step.
@@ -29,7 +32,11 @@
     docker-compose build --no-cache rn_app  
 ```
     This will recreate a new container according to the Dockerfile and docker-compose.yml. However, the mapped volume (and the content - the generated files) will still be there.
-    Now the docker container can be launched:
+    Now we can run this command to install the necessary packages.
+```
+    docker run -it -v ./:/usr/src/app/ rn_app:latest npx expo install react-dom react-native-web @expo/metro-runtime
+```
+    After that, the docker container can be launched:
 ```
     docker-compose up
 ```

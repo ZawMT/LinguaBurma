@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-WORKDIR /usr/src/app/rn_app
+WORKDIR /usr/src/app/
 
 RUN npm install -g create-expo-app@3.2.0
 
