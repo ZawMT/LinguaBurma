@@ -24,7 +24,7 @@ docker exec -it django_server_container_name python manage.py migrate
 ### Step 3
 Create the super user in django server.
 ```
-docker exec -it django-backend python manage.py createsuperuser
+docker exec -it django_server_container_name python manage.py createsuperuser
 ```
 Follow the steps accordingly to create a super user. Note down the user name and password as required for later use (though it is not needed for this spike).
 
