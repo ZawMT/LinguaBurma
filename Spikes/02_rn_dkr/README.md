@@ -28,6 +28,9 @@
 ```
     docker run -it -v ./:/usr/src/app/ rn_app:latest npx expo install react-dom react-native-web @expo/metro-runtime
 ```
+```
+    docker run -it -v ${pwd}/:/usr/src/app/ rn_app:latest npx expo install react-dom react-native-web @expo/metro-runtime # ${pwd} - Current Directory for powershell
+```
     To run that command, the working directory should be the newly created project folder.
     So, firstly, delete the current image and copy the content of Dockerfile_02 into the Dockerfile.
     And then recreate the docker image as in the following step.
@@ -39,6 +42,9 @@
     Now we can run this command to install the necessary packages.
 ```
     docker run -it -v ./:/usr/src/app/ rn_app:latest npx expo install react-dom react-native-web @expo/metro-runtime
+```
+```
+    docker run -it -v ${pwd}/:/usr/src/app/ rn_app:latest npx expo install react-dom react-native-web @expo/metro-runtime # ${pwd} - Current Directory for powershell
 ```
     After that, the docker container can be launched:
 ```
