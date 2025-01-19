@@ -18,6 +18,10 @@
 ```
     docker run -it -v ./:/usr/src/app/ rn_app:latest npx create-expo-app --template blank
 ```
+```
+    docker run -it -v ${pwd}/:/usr/src/app/ rn_app:latest npx create-expo-app --template blank # ${pwd} - Current Directory for powershell
+```
+    
     The current project directory is mapped to '/usr/src/app' of the image as well, so the generated files can be accessed in the host.
     Logically the application should be able to call by running "npm run --web" in the container.
     But first, we need to run this: npx expo install react-dom react-native-web @expo/metro-runtime.
