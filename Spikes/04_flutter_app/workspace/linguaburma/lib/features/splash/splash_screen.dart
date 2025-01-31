@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/logo.png', height: 100), // Your app logo
+            Image.asset('assets/images/google_logo.png', height: 100), // Your app logo
             SizedBox(height: 20),
             CircularProgressIndicator(), // Loading indicator
           ],

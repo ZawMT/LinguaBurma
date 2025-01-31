@@ -1,9 +1,10 @@
 // lib/core/services/api_service.dart
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:linguaburma_app/core/app/app_config.dart';
 
 class ApiService {
-  final String _baseUrl = 'https://your-django-server/api';
+  final String _baseUrl = AppConfig.apiBaseUrl;
 
   Future<Map<String, dynamic>?> googleLogin(String idToken) async {
     try {
