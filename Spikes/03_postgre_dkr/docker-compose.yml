@@ -1,0 +1,31 @@
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: dictionary_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  django:
+    build:
+      context: ./app/
+      dockerfile: Dockerfile
+    container_name: django-backend
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: dictionary_db
+      POSTGRES_HOST: postgres-db
+    depends_on:
+      - postgres-db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+volumes:
+  postgres_data:
