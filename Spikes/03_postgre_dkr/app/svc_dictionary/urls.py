@@ -20,8 +20,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import get_definition
+from .views import google_login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/define/', get_definition, name='define')
+    path('api/define/', get_definition, name='define'),
+    path('api/google-login/', google_login),
 ]
