@@ -1,0 +1,31 @@
+services:
+  pgdb_linguaburma:
+    image: postgres:latest
+    container_name: pgdb_linguaburma
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: db_linguaburma
+    volumes:
+      - pgdb_data_linguaburma:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  djg_linguaburma:
+    build:
+      context: ./svc/
+      dockerfile: Dockerfile
+    container_name: djg_linguaburma
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: db_linguaburma
+      POSTGRES_HOST: pgdb-linguaburma
+    depends_on:
+      - postgres-db
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+volumes:
+  pgdb_data_linguaburma:
