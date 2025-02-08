@@ -52,3 +52,16 @@
     This command will result some info as output. Copy the 'SHA1' section which looks like:
     00:11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:FF:01:23:45:67
     Copy this string and fill it in Google 'SHA-1 certificate fingerprint', and create.
+
+### Step 4: Link up the info
+    All the information set up in Step 2 and 3 will be linked up by adding the following in the 'android/app/build.gradle'
+```    
+    signingConfigs {
+        debug {
+            keyAlias = 'gg_signin'
+            keyPassword = 'gg_signin'
+            storeFile = file('gg_signin.jks')
+            storePassword = 'gg_signin'
+        }
+    }
+```    

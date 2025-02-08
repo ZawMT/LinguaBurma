@@ -30,6 +30,15 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        debug {
+            keyAlias = 'gg_signin'
+            keyPassword = 'gg_signin'
+            storeFile = file('gg_signin.jks')
+            storePassword = 'gg_signin'
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
