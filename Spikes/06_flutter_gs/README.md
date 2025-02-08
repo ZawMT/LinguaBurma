@@ -14,3 +14,17 @@
     flutter run
 ```
     The available environemnts will be listend and use one of those to run the app. The app is just a flutter sample app.
+
+### Step 2: Generating the key
+    A key file will be needed in this process of setting up to sign in using Google. Therefore, the file is generated using the following command.    
+    For Mac / Linux:
+```
+    keytool -genkey -v -keystore ~/gg_signin.jks -keyalg RSA -keysize 2048 -validity 10000 -alias gg_signin
+```
+    In the command above, the parameter '~/gg_signin.jks' is the keyfile's name, and 'gg_signin' is the alias name, the same as '%userprofile%\gg_signin.jks' and 'gg_signin' are in the following.
+
+    For Windows:
+```
+    keytool -genkey -v -keystore %userprofile%\gg_signin.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias gg_signin
+```
+    Then this generated file is put under 'gg_signin/android/app'.
