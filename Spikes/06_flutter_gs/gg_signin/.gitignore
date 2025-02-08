@@ -1,0 +1,54 @@
+# System-specific
+.DS_Store
+
+# Flutter/Dart related
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+**/doc/api/
+
+# Obfuscation-related
+app.*.symbols
+app.*.map.json
+
+# iOS and macOS
+ios/
+macos/
+
+# Windows
+windows/
+
+# Linux
+linux/
+
+# Web
+web/
+
+# Android Studio-specific
+*.iml
+.idea/
+.gradle/
+.android/
+
+# Symbolication and build outputs
+android/app/debug/
+android/app/profile/
+android/app/release/
+
+# VS Code-specific
+.vscode/
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
