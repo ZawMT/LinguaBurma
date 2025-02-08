@@ -65,3 +65,19 @@
         }
     }
 ```    
+
+### Step 5: Implementing Google Sign-in
+    In this step, some codes will be written to do Google sign-in. To be able to use the necessary library to do Google sign-in, we need to install a package. That info can be checked at https://pub.dev/packages/google_sign_in/install. It is as follows:
+```    
+flutter pub add google_sign_in
+```
+    Run the command above, then the necessary library will be installed which can be verified in 'pubspec.yaml'.
+
+    Then the gg_signin.dart class is created for testing Google sing-in, and main.dart will call this gg_signin.dart instead of the sample MyHomePage class.
+
+    *** While running, there might be some error complaining because the following version is too low:
+    id "com.android.application" version "8.1.0" apply false
+    For that error, simple change it to the recommended version number.
+
+    Now, the application can be run and tested by calling 'flutter run'. 
+    Google sign-in is set up only for Android, so the test must be done in Android emulator or device. 
