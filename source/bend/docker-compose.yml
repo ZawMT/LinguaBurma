@@ -13,7 +13,7 @@ services:
 
   djg_linguaburma:
     build:
-      context: ./svc/
+      context: ./app/
       dockerfile: Dockerfile
     container_name: djg_linguaburma
     environment:
@@ -22,7 +22,7 @@ services:
       POSTGRES_DB: db_linguaburma
       POSTGRES_HOST: pgdb-linguaburma
     depends_on:
-      - postgres-db
+      - pgdb_linguaburma
     ports:
       - "8000:8000"
     volumes:
