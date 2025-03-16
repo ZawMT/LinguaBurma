@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lb_v1/pg_signin.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
+  // await dotenv.load(fileName: ".env");  // Explicitly load .env file
   runApp(const MyApp());
 }
 
@@ -31,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const PGSignIn(),
     );
   }
 }

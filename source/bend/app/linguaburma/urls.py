@@ -20,8 +20,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .views import fc_play
+from .views_auth import google_login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/fc_play/', fc_play, name='fc_play'),
+    path('auth/social/google/', google_login, name='google_login'),
 ]

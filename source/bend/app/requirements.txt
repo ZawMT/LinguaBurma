@@ -1,5 +1,12 @@
 django
 psycopg2-binary
-djangorestframework
-djangorestframework-simplejwt
 requests
+
+# For OAuth sign-ins
+google-auth
+django-allauth
+dj-rest-auth
+djangorestframework
+social-auth-app-django
+django-cors-headers
+djangorestframework-simplejwt

@@ -30,6 +30,15 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        debug {
+            keyAlias = 'lb_signin'
+            keyPassword = 'lb_signin'
+            storeFile = file('lb_signin.jks')
+            storePassword = 'lb_signin'
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
