@@ -71,4 +71,6 @@ web/
 # VS Code-specific
 .vscode/
 
+# ENV file
+.env
 
