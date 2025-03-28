@@ -5,6 +5,11 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+def env = new Properties()
+file("../../.env").withInputStream { stream ->
+    env.load(stream)
+}
+
 android {
     namespace = "com.example.lb_v1"
     compileSdk = flutter.compileSdkVersion
@@ -32,10 +37,10 @@ android {
 
     signingConfigs {
         debug {
-            keyAlias = System.getenv('KEY_ALIAS')
-            keyPassword = System.getenv('KEY_PASSWORD')
-            storeFile = file(System.getenv('STORE_FILE'))
-            storePassword = System.getenv('STORE_PASSWORD')
+            keyAlias = env['KEY_ALIAS']
+            keyPassword = env['KEY_PASSWORD']
+            storeFile = file(env['STORE_FILE'])
+            storePassword = env['STORE_PASSWORD']
         }
     }
 
