@@ -18,20 +18,12 @@ class _PGSignInState extends State<PGSignIn> {
 
   void fnSignIn() async {
     try {
-      print("*********1 Loading ENV file");
       await dotenv.load(fileName: ".env"); 
       String backendUrl = dotenv.env['BACKEND_URL'] ?? ""; /* No env value will cause error */ 
-      print("*********2 Backend URL: $backendUrl");
-      print("*********3 Calling google sign-in");
       var usr = await googleSignIn.signIn();
-      print("*********4 Signin attempt done");
       if (usr != null) {
-        print("*********5 User info after log in is OK");
         final GoogleSignInAuthentication auth = await usr.authentication;
-        print("*********5.1 Done authentication");
-        print("*********5.1 auth value $auth");
         final String idToken = auth.idToken!;  
-        print("Token: $idToken");
         final response = await http.post(
           Uri.parse("$backendUrl/auth/social/google/"),
           body: jsonEncode({"access_token": idToken}),
@@ -48,39 +40,14 @@ class _PGSignInState extends State<PGSignIn> {
             errorMessage = "Login failed: ${response.body}";
           });
         }
-      }else {
-        print("*********6 User info after log in is NULL");
       }
     } catch (e) {
-      print("*********7 Sing-in failed: $e");
       setState(() {
         errorMessage = "Sign-in failed: $e"; // Update UI with the error message
       });
     }
   }
   
-
-/*
-  GoogleSignIn googleSignIn = GoogleSignIn();
-  GoogleSignInAccount? user; 
-  String? errorMessage; 
-
-  void fnSignIn() async {
-    try {
-      var usr = await googleSignIn.signIn();
-      if (usr != null) {
-        setState(() {
-          user = usr;
-          errorMessage = null; // Clear any previous error messages
-        });
-      }
-    } catch (e) {
-      setState(() {
-        errorMessage = "Sign-in failed: $e"; // Update UI with the error message
-      });
-    }
-  }
-*/
   void fnSignOut() async {
     await googleSignIn.signOut();
     setState(() {
