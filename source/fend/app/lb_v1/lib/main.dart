@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:lb_v1/pg_signin.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
+
+import 'package:lb_v1/providers/pv_userinfo.dart';
+import 'package:lb_v1/pages/pg_signin.dart';
 
 Future<void> main() async {
   // WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
   // await dotenv.load(fileName: ".env");  // Explicitly load .env file
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (_) => PVUserInfo(), 
+      child: const MyApp(),
+    ));
 }
 
 class MyApp extends StatelessWidget {

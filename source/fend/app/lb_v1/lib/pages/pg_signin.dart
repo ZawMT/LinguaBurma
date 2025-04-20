@@ -3,6 +3,10 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:lb_v1/providers/pv_userinfo.dart';
+import 'package:provider/provider.dart';
+
+import 'pg_landing.dart';
 
 class PGSignIn extends StatefulWidget {
   const PGSignIn({super.key});
@@ -16,7 +20,9 @@ class _PGSignInState extends State<PGSignIn> {
   GoogleSignInAccount? user; 
   String? errorMessage; 
 
-  void fnSignIn() async {
+  void fnSignIn({
+    required Function(String) onSuccess, // Callback for navigation
+    }) async {
     try {
       await dotenv.load(fileName: ".env"); 
       String backendUrl = dotenv.env['BACKEND_URL'] ?? ""; /* No env value will cause error */ 
@@ -35,6 +41,11 @@ class _PGSignInState extends State<PGSignIn> {
             user = usr;
             errorMessage = null; // Clear any previous error messages
           });
+
+          // Call the success callback to handle navigation
+          String? loginUsrName = user!.displayName;
+          loginUsrName ??= user?.email;
+          onSuccess.call(loginUsrName!);
         } else {
           setState(() {
             errorMessage = "Login failed: ${response.body}";
@@ -65,10 +76,22 @@ class _PGSignInState extends State<PGSignIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (user == null) ...[
-              TextButton(
-                onPressed: fnSignIn,
-                child: const Text("Sign in using Google"),
-              ),
+              ElevatedButton(
+                onPressed: () {
+                  fnSignIn(
+                    onSuccess: (loginUserName) {
+                      final authProvider = Provider.of<PVUserInfo>(context, listen: false);
+                      authProvider.login(loginUserName);
+                      // Navigate to the landing page
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const PgLanding()),
+                      );
+                    },
+                  );
+                },
+                child: const Text('Login with Google'),
+              )  
             ] else ...[
               Text("Welcome, ${user!.displayName ?? 'User'}!"),
               const SizedBox(height: 10),
