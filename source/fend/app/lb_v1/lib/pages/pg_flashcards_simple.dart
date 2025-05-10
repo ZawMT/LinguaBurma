@@ -34,21 +34,30 @@ class BtnQuestion extends StatelessWidget {
 }
 
 class BtnAnswer extends StatelessWidget {
-  const BtnAnswer({super.key, required this.answer});
+  const BtnAnswer({
+    super.key,
+    required this.answer,
+    required this.showAnswer,
+    required this.onTap,
+  });
+
   final String answer;
+  final bool showAnswer;
+  final VoidCallback onTap;
+
   @override
   Widget build(BuildContext context) {
-    return Expanded( // Wrap with Expanded
+    return Expanded(
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: onTap,
           style: ElevatedButton.styleFrom(
             alignment: Alignment.center,
           ),
-          child: Text("Show Answer"),
+          child: Text(showAnswer ? answer : "Show Answer"),
         ),
-      )
+      ),
     );
   }
 }
@@ -192,6 +201,8 @@ class BtnAveragePercent extends StatelessWidget {
 }
 
 class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
+  int _currentIndex = 0;
+  bool _showAnswer = false;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<Map<String, dynamic>> _flashcardsData = [];
   // Hardcoded JSON data
@@ -261,7 +272,15 @@ class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
               const SizedBox(height: 10),
               BtnQuestion(question: _flashcardsData[0]['question']),
               const SizedBox(height: 10),
-              BtnAnswer(answer: _flashcardsData[0]['answer']),
+              BtnAnswer(
+                answer: _flashcardsData[_currentIndex]['answer'],
+                showAnswer: _showAnswer,
+                onTap: () {
+                  setState(() {
+                    _showAnswer = !_showAnswer;
+                  });
+                },
+              ),
               const SizedBox(height: 10),
               Row(children: <Widget>[
                 BtnRight(), BtnWrong()
