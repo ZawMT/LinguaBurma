@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lb_v1/pages/pg_flashcards_settings.dart';
 
 class PgMain extends StatefulWidget {
   const PgMain({super.key});
@@ -103,7 +104,10 @@ class _PgMainState extends State<PgMain> {
                 padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 1),
                 child: ElevatedButton(
                   onPressed: () {
-                    print('Flashcards button is pressed ...');
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const PgFlashcardsSettingsWidget()),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF4B39EF), // FlutterFlowTheme.of(context).primary
