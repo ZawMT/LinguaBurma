@@ -18,7 +18,7 @@ class BtnQuestion extends StatelessWidget {
   final String question;
   @override
   Widget build(BuildContext context) {
-    return Expanded( // Wrap with Expanded
+    return Expanded(
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -28,69 +28,113 @@ class BtnQuestion extends StatelessWidget {
           ),
           child: Text(question),
         ),
-      )
+      ),
     );
   }
 }
 
-class BtnAnswer extends StatelessWidget {
+class BtnAnswer extends StatefulWidget {
   const BtnAnswer({
     super.key,
     required this.answer,
+    required this.glowColor,
     required this.showAnswer,
     required this.onTap,
+    required this.isGlowing,
   });
 
   final String answer;
+  final Color glowColor;    
   final bool showAnswer;
   final VoidCallback onTap;
+  final bool isGlowing;
 
+  @override
+  State<BtnAnswer> createState() => _BtnAnswerState();
+}
+
+class _BtnAnswerState extends State<BtnAnswer> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: SizedBox(
         width: double.infinity,
-        child: ElevatedButton(
-          onPressed: onTap,
-          style: ElevatedButton.styleFrom(
-            alignment: Alignment.center,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+            boxShadow: widget.isGlowing
+              ? [
+                  BoxShadow(
+                    color: widget.glowColor.withAlpha(150), 
+                    spreadRadius: 3,
+                    blurRadius: 5,
+                    offset: const Offset(0, 0),
+                  ),
+                  BoxShadow(
+                    color: widget.glowColor.withAlpha(120),
+                    spreadRadius: 3,
+                    blurRadius: 8,
+                    offset: const Offset(0, 0),
+                  ),
+                ]
+              : [],
           ),
-          child: Text(showAnswer ? answer : "Show Answer"),
+          child: ElevatedButton(
+            onPressed: widget.onTap,
+            style: ElevatedButton.styleFrom(
+              alignment: Alignment.center,
+            ),
+            child: Text(widget.showAnswer ? widget.answer : "Show Answer"),
+          ),
         ),
       ),
     );
   }
 }
 
-class BtnRight extends StatelessWidget {
-  const BtnRight({super.key});
+class BtnAction extends StatefulWidget {
+  const BtnAction({
+    super.key,
+    required this.text,
+    required this.color,
+    required this.onPressed,
+    required this.isGlowing,
+  });
+
+  final String text;
+  final Color color;
+  final VoidCallback? onPressed; // Make onPressed nullable
+  final bool isGlowing;
 
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.secondary
-        ),
-        child: const Text('Correct'),
-      ),
-    );
-  }
+  State<BtnAction> createState() => _BtnActionState();
 }
 
-class BtnWrong extends StatelessWidget {
-  const BtnWrong({super.key});
-
+class _BtnActionState extends State<BtnAction> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.error
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        decoration: BoxDecoration(
+          boxShadow: widget.isGlowing
+              ? [
+                  BoxShadow(
+                    color: widget.color.withAlpha(150),
+                    spreadRadius: 5,
+                    blurRadius: 10,
+                    offset: const Offset(0, 0),
+                  ),
+                ]
+              : [],
         ),
-        child: const Text('Wrong'),
+        child: ElevatedButton(
+          onPressed: widget.onPressed, // onPressed is now nullable here as well
+          style: ElevatedButton.styleFrom(
+            backgroundColor: widget.color,
+          ),
+          child: Text(widget.text),
+        ),
       ),
     );
   }
@@ -101,16 +145,17 @@ class BtnTotal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: ElevatedButton(onPressed: () {}, child: Text('Total')));
+    return const Expanded(child: ElevatedButton(onPressed: null, child: Text('Total')));
   }
 }
 
 class BtnTotalCnt extends StatelessWidget {
-  const BtnTotalCnt({super.key});
+  const BtnTotalCnt({super.key, required this.count});
+  final int count;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: ElevatedButton(onPressed: () {}, child: Text('0')));
+    return Expanded(child: ElevatedButton(onPressed: null, child: Text('$count')));
   }
 }
 
@@ -121,9 +166,9 @@ class BtnCorrect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.secondary
+          backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
         child: const Text('Correct'),
       ),
@@ -132,17 +177,18 @@ class BtnCorrect extends StatelessWidget {
 }
 
 class BtnCorrectCnt extends StatelessWidget {
-  const BtnCorrectCnt({super.key});
+  const BtnCorrectCnt({super.key, required this.count});
+  final int count;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.secondary
+          backgroundColor: Theme.of(context).colorScheme.secondary,
         ),
-        child: const Text('0'),
+        child: Text('$count'),
       ),
     );
   }
@@ -155,9 +201,9 @@ class BtnIncorrect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.error
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
         child: const Text('Wrong'),
       ),
@@ -166,17 +212,18 @@ class BtnIncorrect extends StatelessWidget {
 }
 
 class BtnIncorrectCnt extends StatelessWidget {
-  const BtnIncorrectCnt({super.key});
+  const BtnIncorrectCnt({super.key, required this.count});
+  final int count;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).colorScheme.error
+          backgroundColor: Theme.of(context).colorScheme.error,
         ),
-        child: const Text('0'),
+        child: Text('$count'),
       ),
     );
   }
@@ -187,25 +234,30 @@ class BtnAverage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: ElevatedButton(onPressed: () {}, child: Text('Average Score')));
+    return const Expanded(child: ElevatedButton(onPressed: null, child: Text('Average Score')));
   }
 }
 
 class BtnAveragePercent extends StatelessWidget {
-  const BtnAveragePercent({super.key});
+  const BtnAveragePercent({super.key, required this.percentage});
+  final String percentage;
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: ElevatedButton(onPressed: () {}, child: Text('0%')));
+    return Expanded(child: ElevatedButton(onPressed: null, child: Text(percentage)));
   }
 }
 
 class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
   int _currentIndex = 0;
   bool _showAnswer = false;
+  bool _isAnswerButtonGlowing = true;
+  bool _isResultButtonsGlowing = false;
+  int _totalCount = 0;
+  int _correctCount = 0;
+  int _incorrectCount = 0;
   final scaffoldKey = GlobalKey<ScaffoldState>();
   List<Map<String, dynamic>> _flashcardsData = [];
-  // Hardcoded JSON data
   final String _jsonFlashcards = '''
     [
       {
@@ -226,7 +278,7 @@ class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
   @override
   void initState() {
     super.initState();
-    _parseJsonData(); 
+    _parseJsonData();
   }
 
   @override
@@ -237,9 +289,41 @@ class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
   void _parseJsonData() {
     final parsedData = jsonDecode(_jsonFlashcards) as List<dynamic>;
     _flashcardsData = parsedData.cast<Map<String, dynamic>>();
-    // You can print it to verify the data is parsed correctly
     print('Flashcard Data: $_flashcardsData');
   }
+
+  void _showAnswerAndEnableResult() {
+    setState(() {
+      _showAnswer = true;
+      _isAnswerButtonGlowing = false;
+      _isResultButtonsGlowing = true;
+    });
+  }
+
+  void _markCorrect() {
+    setState(() {
+      _totalCount++;
+      _correctCount++;
+      _showAnswer = false;
+      _isAnswerButtonGlowing = true;
+      _isResultButtonsGlowing = false;
+      _currentIndex = (_currentIndex + 1) % _flashcardsData.length;
+    });
+  }
+
+  void _markIncorrect() {
+    setState(() {
+      _totalCount++;
+      _incorrectCount++;
+      _showAnswer = false;
+      _isAnswerButtonGlowing = true;
+      _isResultButtonsGlowing = false;
+      _currentIndex = (_currentIndex + 1) % _flashcardsData.length;
+    });
+  }
+
+  String get _averagePercentage =>
+      _totalCount == 0 ? '0%' : '${((_correctCount / _totalCount) * 100).toStringAsFixed(0)}%';
 
   @override
   Widget build(BuildContext context) {
@@ -256,9 +340,7 @@ class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
           automaticallyImplyLeading: false,
           title: Text(
             'Simple Flashcards ',
-            style: ThemeSelector.currentTheme.textTheme.titleSmall?.copyWith(
-              color: Colors.white
-            ),
+            style: ThemeSelector.currentTheme.textTheme.titleSmall?.copyWith(color: Colors.white),
           ),
           actions: const [],
           centerTitle: false,
@@ -266,44 +348,63 @@ class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
         ),
         body: SafeArea(
           child: Column(
-          children: <Widget>[
-            if (_flashcardsData.isNotEmpty)
-              ...[
-              const SizedBox(height: 10),
-              BtnQuestion(question: _flashcardsData[0]['question']),
-              const SizedBox(height: 10),
-              BtnAnswer(
-                answer: _flashcardsData[_currentIndex]['answer'],
-                showAnswer: _showAnswer,
-                onTap: () {
-                  setState(() {
-                    _showAnswer = !_showAnswer;
-                  });
-                },
-              ),
-              const SizedBox(height: 10),
-              Row(children: <Widget>[
-                BtnRight(), BtnWrong()
-              ],
-              ),
-              Row(children: <Widget>[
-                BtnTotal(), BtnTotalCnt()
-              ],
-              ),
-              Row(children: <Widget>[
-                BtnCorrect(), BtnCorrectCnt()
-              ],
-              ),
-              Row(children: <Widget>[
-                BtnIncorrect(), BtnIncorrectCnt()
-              ],
-              ),
-              Row(children: <Widget>[
-                BtnAverage(), BtnAveragePercent()
-              ],
-              )]
-          ],
-        ),
+            children: <Widget>[
+              if (_flashcardsData.isNotEmpty)
+                ...[
+                  const SizedBox(height: 10),
+                  BtnQuestion(question: _flashcardsData[_currentIndex]['question']),
+                  const SizedBox(height: 10),
+                  BtnAnswer(
+                    answer: _flashcardsData[_currentIndex]['answer'],
+                    glowColor: Theme.of(context).colorScheme.shadow,
+                    showAnswer: _showAnswer,
+                    onTap: _showAnswerAndEnableResult,
+                    isGlowing: _isAnswerButtonGlowing,
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: <Widget>[
+                      BtnAction(
+                        text: 'Correct',
+                        color: Theme.of(context).colorScheme.secondary,
+                        onPressed: _isResultButtonsGlowing ? _markCorrect : null,
+                        isGlowing: _isResultButtonsGlowing,
+                      ),
+                      BtnAction(
+                        text: 'Wrong',
+                        color: Theme.of(context).colorScheme.error,
+                        onPressed: _isResultButtonsGlowing ? _markIncorrect : null,
+                        isGlowing: _isResultButtonsGlowing,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      const BtnTotal(),
+                      BtnTotalCnt(count: _totalCount),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      const BtnCorrect(),
+                      BtnCorrectCnt(count: _correctCount),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      const BtnIncorrect(),
+                      BtnIncorrectCnt(count: _incorrectCount),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      const BtnAverage(),
+                      BtnAveragePercent(percentage: _averagePercentage),
+                    ],
+                  ),
+                ],
+            ],
+          ),
         ),
       ),
     );
