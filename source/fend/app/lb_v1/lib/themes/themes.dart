@@ -46,7 +46,7 @@ class AppTheme {
       error: Colors.deepOrangeAccent, // Example for wrong in greenish theme
       brightness: Brightness.light
     ),
-    shadowColor: Colors.deepPurpleAccent
+    shadowColor: Colors.purple
     // Define other theme properties as needed (e.g., colorScheme, cardTheme, etc.)
   );
 
@@ -94,6 +94,6 @@ class AppTheme {
       error: Colors.deepOrangeAccent, // Example for wrong in greenish theme
       brightness: Brightness.dark
     ),
-    shadowColor: Colors.orangeAccent
+    shadowColor: Colors.amber
   );
 }

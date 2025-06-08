@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lb_v1/pages/pg_fc_simple.dart';
 import 'package:lb_v1/pages/pg_flashcards_simple.dart';
 
 class PgFlashcardsSettingsWidget extends StatefulWidget {
@@ -82,7 +83,29 @@ class _PgFlashcardsSettingsWidgetState extends State<PgFlashcardsSettingsWidget>
                   style: titleSmallTextStyle(context),
                 ),
               ),
-              const SizedBox(height: 16), // Add some spacing between buttons
+              const SizedBox(height: 16), // Add some spacing between buttons              
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const PgFcSimpleWidget()),
+                    );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  elevation: 0,
+                  minimumSize: const Size(double.infinity, 40), // Match height
+                ),
+                child: Text(
+                  'Style 2',
+                  style: titleSmallTextStyle(context),
+                ),
+              ),
+              const SizedBox(height: 16), // Add some spacing between buttons              
               ElevatedButton(
                 onPressed: () {
                   print('Button pressed ...');
