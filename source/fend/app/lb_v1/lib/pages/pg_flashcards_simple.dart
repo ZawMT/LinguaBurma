@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:lb_v1/themes/theme_selector.dart';
+import 'package:provider/provider.dart';
 
 class PgFlashcardsSimpleWidget extends StatefulWidget {
   const PgFlashcardsSimpleWidget({super.key});
@@ -327,6 +328,8 @@ class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final themeSelector = context.watch<ThemeSelector>();
+    
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -334,13 +337,13 @@ class _PgFlashcardsSimpleWidgetState extends State<PgFlashcardsSimpleWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: ThemeSelector.currentTheme.primaryColorLight,
+        backgroundColor: themeSelector.currentTheme.primaryColorLight,
         appBar: AppBar(
-          backgroundColor: ThemeSelector.currentTheme.primaryColor,
+          backgroundColor: themeSelector.currentTheme.primaryColor,
           automaticallyImplyLeading: false,
           title: Text(
             'Simple Flashcards ',
-            style: ThemeSelector.currentTheme.textTheme.titleSmall?.copyWith(color: Colors.white),
+            style: themeSelector.currentTheme.textTheme.titleSmall?.copyWith(color: Colors.white),
           ),
           actions: const [],
           centerTitle: false,

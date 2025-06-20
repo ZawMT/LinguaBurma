@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:lb_v1/themes/themes.dart';
+import 'package:lb_v1/themes/themes.dart'; // Assuming this path is correct
 
-class ThemeSelector {
-  static ThemeData _currentTheme = AppTheme.themeBluish; // Default theme
+class ThemeSelector with ChangeNotifier { // Use 'with' for mixin
+  static final ThemeSelector _instance = ThemeSelector._internal(); // Singleton instance
 
-  static ThemeData get currentTheme => _currentTheme;
+  factory ThemeSelector() {
+    return _instance;
+  }
 
-  static void setTheme(String themeName) {
+  ThemeSelector._internal(); // Private constructor
+
+  ThemeData _currentTheme = AppTheme.themeBluish; // Default theme
+
+  ThemeData get currentTheme => _currentTheme;
+
+  void setTheme(String themeName) {
+    ThemeData newTheme;
     switch (themeName) {
       case 'bluish':
-        _currentTheme = AppTheme.themeBluish;
-        // TODO: To notify listeners here if you're using a state management solution
+        newTheme = AppTheme.themeBluish;
         break;
-
       case 'greenish':
-        _currentTheme = AppTheme.themeGreenish;
-        // TODO: Notify listeners
+        newTheme = AppTheme.themeGreenish;
         break;
-
       default:
-        _currentTheme = AppTheme.themeBluish; // Default fallback
-        // TODO: Notify listeners
+        newTheme = AppTheme.themeBluish; // Default fallback
         break;
+    }
+
+    if (_currentTheme != newTheme) { // Only update if theme actually changes
+      _currentTheme = newTheme;
+      notifyListeners(); // Notify all listening widgets to rebuild
     }
   }
 }

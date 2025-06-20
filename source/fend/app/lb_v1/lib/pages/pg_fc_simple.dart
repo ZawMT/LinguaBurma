@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:lb_v1/controls/ctrl_app_end_drawer.dart';
 import 'package:lb_v1/themes/theme_selector.dart';
+import 'package:provider/provider.dart';
 
 class PgFcSimpleWidget extends StatefulWidget {
   const PgFcSimpleWidget({super.key});
@@ -298,6 +300,8 @@ class _PgFcSimpleWidgetState extends State<PgFcSimpleWidget> {
 
   @override
   Widget build(BuildContext ctx) {
+    final themeSelector = context.watch<ThemeSelector>();
+    
     return GestureDetector(
       onTap: () {
         FocusScope.of(ctx).unfocus();
@@ -305,18 +309,19 @@ class _PgFcSimpleWidgetState extends State<PgFcSimpleWidget> {
       },
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: ThemeSelector.currentTheme.primaryColorLight,
+        backgroundColor: themeSelector.currentTheme.primaryColorLight,
         appBar: AppBar(
-          backgroundColor: ThemeSelector.currentTheme.primaryColor,
+          backgroundColor: themeSelector.currentTheme.primaryColor,
           automaticallyImplyLeading: false,
           title: Text(
             'Simple Flashcards ',
-            style: ThemeSelector.currentTheme.textTheme.titleSmall?.copyWith(color: Colors.white),
+            style: themeSelector.currentTheme.textTheme.titleSmall?.copyWith(color: Colors.white),
           ),
           actions: const [],
           centerTitle: false,
           elevation: 2,
         ),
+        endDrawer: const CtrlAppEndDrawer(),
         body: SafeArea(
           child: Column(
             children: <Widget>[

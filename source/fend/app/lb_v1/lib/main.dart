@@ -6,24 +6,35 @@ import 'package:lb_v1/providers/pv_userinfo.dart';
 import 'package:lb_v1/pages/pg_signin.dart';
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized
-  // await dotenv.load(fileName: ".env");  // Explicitly load .env file
-  runApp(ChangeNotifierProvider(
-      create: (_) => PVUserInfo(), 
+  // WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized if you need native platform channels before runApp
+  // await dotenv.load(fileName: ".env");  // Explicitly load .env file if used
+
+  runApp(
+    MultiProvider( // Use MultiProvider to provide multiple ChangeNotifier instances
+      providers: [
+        ChangeNotifierProvider(create: (_) => PVUserInfo()),
+        ChangeNotifierProvider(create: (_) => ThemeSelector()), // Provide ThemeSelector
+      ],
       child: const MyApp(),
-    ));
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Access the ThemeSelector instance using context.watch to listen for changes
+    final themeSelector = context.watch<ThemeSelector>();
+
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeSelector.currentTheme,
+      // Now, the theme will dynamically update when themeSelector.setTheme() is called
+      theme: themeSelector.currentTheme,
       home: const PGSignIn(),
+      // You can also define your debugShowCheckedModeBanner and other MaterialApp properties here
+      debugShowCheckedModeBanner: false, // Example
     );
   }
 }
