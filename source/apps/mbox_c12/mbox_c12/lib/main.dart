@@ -1,36 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:mbox_c12/themes/theme_selector.dart';
+import 'package:mbox_c12/pages/pg_landing.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  // WidgetsFlutterBinding.ensureInitialized(); // Ensure Flutter is initialized if you need native platform channels before runApp
+  // await dotenv.load(fileName: ".env");  // Explicitly load .env file if used
+
+  runApp(
+    MultiProvider( // Use MultiProvider to provide multiple ChangeNotifier instances
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeSelector()), // Provide ThemeSelector
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // Access the ThemeSelector instance using context.watch to listen for changes
+    final themeSelector = context.watch<ThemeSelector>();
+
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      // Now, the theme will dynamically update when themeSelector.setTheme() is called
+      theme: themeSelector.currentTheme,
+      home: const PgLanding(),
+      // You can also define your debugShowCheckedModeBanner and other MaterialApp properties here
+      debugShowCheckedModeBanner: false, // Example
     );
   }
 }
@@ -84,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -104,7 +106,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('You have pushed the button this many times:'),
+            const Text(
+              'You have pushed the button this many times:',
+            ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,

@@ -38,6 +38,7 @@ dependencies:
   flutter_dotenv: ^5.2.1
   provider: ^6.1.4
   google_fonts: ^6.2.1  
+  build_runner: ^2.4.0
 
 dev_dependencies:
   flutter_test:
@@ -91,7 +92,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
-
   assets:
-    - .env
-    - lib/images/
+    - lib/assets/vocabularies.json
